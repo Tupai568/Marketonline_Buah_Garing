@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -37,5 +38,19 @@ class AccountController extends Controller
         $file->move($destinationPath, $fileName);
 
         Product::create($validatedData);
+    }
+
+    /* update profile */
+    public function updateProfile(Request $request)
+    {
+        $validate = $request->validate([
+            "id" => "required|integer|exists:users,id",
+            "name" => "required|string|min:5|max:5"
+        ]);
+
+        $user = User::findOrFail($validate["id"]);
+        $user->update($validate);
+
+        return redirect()->route('accounts')->with('success', 'User updated successfully.');
     }
 }

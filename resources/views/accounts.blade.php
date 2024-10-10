@@ -93,8 +93,10 @@
                     <div class="tab__content" content id="update-profile">
                         <h3 class="tab__header">Update Profile</h3>
                         <div class="tab__body">
-                            <form class="form grid">
-                                <input type="text" placeholder="Username" class="form__input" />
+                            <form class="form grid" action="{{ route("update-profile") }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                <input type="text" placeholder="Username" name="name" class="form__input" />
                                 <div class="form__btn">
                                     <button class="btn btn--md">Save</button>
                                 </div>
@@ -110,7 +112,7 @@
                                 <input type="text" placeholder="Name Product" class="form__input" name="name" />
                                 <input type="file" name="image_url">
                                 <input type="text" placeholder="Price Product" class="form__input" name="price" />
-                                <input type="text" placeholder="Total Stock" class="form__input" name="stock" />
+                                <input type="number" placeholder="Total Stock" class="form__input" name="stock" />
                                 <select id="Categories" class="form__input select" name="category_id">
                                     @foreach ($Categories as $Categorie)
                                         <option value="{{ $Categorie->id }}">{{ $Categorie->name }}</option>

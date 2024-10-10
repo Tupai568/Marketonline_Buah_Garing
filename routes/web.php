@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/accounts', [AccountController::class, "index"])->name('accounts');
 
+        Route::post('/update-profile', [AccountController::class, "updateProfile"])->name('update-profile');
         Route::post('/store', [AccountController::class, "store"])->name('store');
         Route::post('/logout', [AuthController::class, "logout"])->name('logout');
     });

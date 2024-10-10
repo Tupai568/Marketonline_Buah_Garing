@@ -49,9 +49,6 @@
                     <li class="nav__item">
                         <a href="{{ route('home') }}" class="nav__link active-link">Home</a>
                     </li>
-                    <li class="nav__item">
-                        <a href="{{ route('shop') }}" class="nav__link">Shop</a>
-                    </li>
                     @auth
                         <li class="nav__item">
                             <a href="{{ route('accounts') }}" class="nav__link">My Account</a>
