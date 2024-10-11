@@ -126,6 +126,34 @@ table {
     padding-inline: 0.75rem;
 }
 
+.notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notif {
+    bottom: 77%;
+    position: absolute;
+    text-transform: capitalize;
+    padding: 8px 10px;
+    font-size: .9rem;
+    color: var(--title-color);
+    border-radius: 5px;  
+}
+
+.success {
+    background-color: green;
+}
+
+.danger {
+    background-color: red;
+}
+
+.warning {
+    background-color: yellow;
+}
+
 .grid {
     display: grid;
     gap: 1.5rem;

@@ -1,5 +1,26 @@
 @extends('component')
 @section('container')
+    <!--=============== NOTIFICATION ===============-->
+    <div class="notification">
+        <div class="notif success"> <span>berhasil update data</span></div>
+    </div>
+    @if (session()->has('success'))
+        <div class="notification">
+            <div class="notif bg-success"> <span>{{ session('success') }}</span></div>
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="notification">
+            <div class="notif bg-danger"> <span>{{ session('error') }}</span></div>
+        </div>
+    @endif
+    @if (session()->has('warning'))
+        <div class="notification">
+            <div class="notif bg-warning"> <span>{!! session('warning') !!}</span></div>
+        </div>
+    @endif
+
+
     <!--=============== MAIN ===============-->
     <main class="main">
         <!--=============== BREADCRUMB ===============-->
@@ -10,7 +31,7 @@
                 <li><span class="breadcrumb__link">Account</span></li>
             </ul>
         </section>
-
+        
         <!--=============== ACCOUNTS ===============-->
         <section class="accounts section--lg">
             <div class="accounts__container container grid">
@@ -93,7 +114,7 @@
                     <div class="tab__content" content id="update-profile">
                         <h3 class="tab__header">Update Profile</h3>
                         <div class="tab__body">
-                            <form class="form grid" action="{{ route("update-profile") }}" method="post">
+                            <form class="form grid" action="{{ route('update-profile') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                 <input type="text" placeholder="Username" name="name" class="form__input" />
@@ -118,7 +139,8 @@
                                         <option value="{{ $Categorie->id }}">{{ $Categorie->name }}</option>
                                     @endforeach
                                 </select>
-                                <textarea name="description" id="" cols="30" rows="10" class="textarea" placeholder="Description"></textarea>
+                                <textarea name="description" id="" cols="30" rows="10" class="textarea"
+                                    placeholder="Description"></textarea>
 
                                 <div class="form__btn">
                                     <button class="btn btn--md" type="submit">Save</button>
