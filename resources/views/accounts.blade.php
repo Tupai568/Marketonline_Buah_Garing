@@ -1,25 +1,9 @@
 @extends('component')
 @section('container')
-    <!--=============== NOTIFICATION ===============-->
-    <div class="notification">
-        <div class="notif success"> <span>berhasil update data</span></div>
-    </div>
-    @if (session()->has('success'))
-        <div class="notification">
-            <div class="notif bg-success"> <span>{{ session('success') }}</span></div>
-        </div>
-    @endif
-    @if (session()->has('error'))
-        <div class="notification">
-            <div class="notif bg-danger"> <span>{{ session('error') }}</span></div>
-        </div>
-    @endif
-    @if (session()->has('warning'))
-        <div class="notification">
-            <div class="notif bg-warning"> <span>{!! session('warning') !!}</span></div>
-        </div>
-    @endif
 
+
+
+@include('notification')
 
     <!--=============== MAIN ===============-->
     <main class="main">
@@ -46,7 +30,7 @@
                         <i class="fi fi-rs-user"></i> Update Profile
                     </p>
                     <p class="account__tab" data-target="#upload-product">
-                        <i class="fi fi-rs-user"></i> Upload Product
+                        <i class="fi fi-rs-upload"></i> Upload Product
                     </p>
                     <p class="account__tab" data-target="#address">
                         <i class="fi fi-rs-marker"></i> My Address
@@ -140,7 +124,7 @@
                                     @endforeach
                                 </select>
                                 <textarea name="description" id="" cols="30" rows="10" class="textarea"
-                                    placeholder="Description"></textarea>
+                                    placeholder="Description" name="description"></textarea>
 
                                 <div class="form__btn">
                                     <button class="btn btn--md" type="submit">Save</button>
@@ -164,12 +148,14 @@
                     <div class="tab__content" content id="change-password">
                         <h3 class="tab__header">Change Password</h3>
                         <div class="tab__body">
-                            <form class="form grid">
-                                <input type="password" placeholder="Current Password" class="form__input" />
-                                <input type="password" placeholder="New Password" class="form__input" />
-                                <input type="password" placeholder="Confirm Password" class="form__input" />
+                            <form class="form grid" action="{{ route("change-password") }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                <input type="password" name="old" placeholder="Current Password" class="form__input" />
+                                <input type="password" name="password" placeholder="New Password" class="form__input" />
+                                <input type="password" name="confirm" placeholder="Confirm Password" class="form__input" />
                                 <div class="form__btn">
-                                    <button class="btn btn--md">Save</button>
+                                    <button class="btn btn--md" type="submit">Save</button>
                                 </div>
                             </form>
                         </div>
