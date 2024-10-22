@@ -47,7 +47,7 @@
                 </div>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="{{ route('home') }}" class="nav__link active-link">Home</a>
+                        <a href="{{ route('home') }}" class="nav__link active-link">Product</a>
                     </li>
                     @auth
                         <li class="nav__item">
@@ -83,13 +83,13 @@
                 </a>
                 <h4 class="footer__subtitle">Contact</h4>
                 <p class="footer__description">
-                    <span>Address:</span> 13 Tlemcen Road, Street 32, Beb-Wahren
+                    <span>Jln:</span>Lettu Suyito RT 1 RW 1 Tulung Rejo, Trucuk Bojonegoro
                 </p>
                 <p class="footer__description">
-                    <span>Phone:</span> +01 2222 365 /(+91) 01 2345 6789
+                    <span>Phone:</span> (+62) 8213-2460-155
                 </p>
                 <p class="footer__description">
-                    <span>Hours:</span> 10:00 - 18:00, Mon - Sat
+                    <span>Hours:</span> 08:00 - 16:30, Mon - Sat
                 </p>
                 <div class="footer__social">
                     <h4 class="footer__subtitle">Follow Me</h4>
@@ -116,8 +116,8 @@
                     </div>
                 </div>
             </div>
-            <div class="footer__content">
-                <h3 class="footer__title">Address</h3>
+            {{-- <div class="footer__content">
+                <h3 class="footer__title">Jln.</h3>
                 <ul class="footer__links">
                     <li><a href="#" class="footer__link">About Us</a></li>
                     <li><a href="#" class="footer__link">Delivery Information</a></li>
@@ -126,8 +126,8 @@
                     <li><a href="#" class="footer__link">Contact Us</a></li>
                     <li><a href="#" class="footer__link">Support Center</a></li>
                 </ul>
-            </div>
-            <div class="footer__content">
+            </div> --}}
+            {{-- <div class="footer__content">
                 <h3 class="footer__title">My Account</h3>
                 <ul class="footer__links">
                     <li><a href="#" class="footer__link">Sign In</a></li>
@@ -137,10 +137,10 @@
                     <li><a href="#" class="footer__link">Help</a></li>
                     <li><a href="#" class="footer__link">Order</a></li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="footer__content">
                 <h3 class="footer__title">Secured Payed Gateways</h3>
-                <img src="./assets/img/payment-method.png" alt="" class="payment__img" />
+                <img src="{{ asset("img/payment-method.png") }}" alt="" class="payment__img" />
             </div>
         </div>
         <div class="footer__bottom">
