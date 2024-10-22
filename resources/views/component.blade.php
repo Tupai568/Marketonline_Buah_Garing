@@ -34,12 +34,12 @@
 
         <nav class="nav container">
             <a href="index.html" class="nav__logo">
-                <img class="nav__logo-img" src="{{ asset('img/logo.svg') }}" alt="website logo" />
+                <img class="nav__logo-img" src="{{ asset('img/logo.png') }}" alt="website logo" />
             </a>
             <div class="nav__menu" id="nav-menu">
                 <div class="nav__menu-top">
                     <a href="index.html" class="nav__menu-logo">
-                        <img src="{{ asset('img/logo.svg') }}" alt="">
+                        <img src="{{ asset('img/logo.png') }}" alt="">
                     </a>
                     <div class="nav__close" id="nav-close">
                         <i class="fi fi-rs-cross-small"></i>
