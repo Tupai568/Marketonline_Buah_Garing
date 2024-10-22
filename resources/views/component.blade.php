@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!--=============== CSS ===============-->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!--=============== AJAX ===============-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <title>Snack Dari Buah Garing - {{ $Title }} </title>
 </head>
@@ -63,9 +67,9 @@
                 </div>
             </div>
             <div class="header__user-actions">
-                <a href="{{ route("cart") }}" class="header__action-btn" title="Cart">
+                <a href="{{ route('cart') }}" class="header__action-btn" title="Cart">
                     <img src="{{ asset('img/icon-cart.svg') }}" alt="" />
-                    <span class="count">3</span>
+                    <span class="count">{{ $Total }}</span>
                 </a>
                 <div class="header__action-btn nav__toggle" id="nav-toggle">
                     <img src="{{ asset('img/menu-burger.svg') }}" alt="">
@@ -140,7 +144,7 @@
             </div> --}}
             <div class="footer__content">
                 <h3 class="footer__title">Secured Payed Gateways</h3>
-                <img src="{{ asset("img/payment-method.png") }}" alt="" class="payment__img" />
+                <img src="{{ asset('img/payment-method.png') }}" alt="" class="payment__img" />
             </div>
         </div>
         <div class="footer__bottom">

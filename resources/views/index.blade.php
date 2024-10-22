@@ -7,11 +7,11 @@
         <section class="products container section">
             <div class="tab__btns">
                 @foreach ($Categories as $categorie)
-                @if ($categorie->name == "Buah")
-                    <span class="tab__btn active-tab" data-target="#{{ $categorie->name }}">{{$categorie->name}}</span>
-                @else
-                    <span class="tab__btn" data-target="#{{ $categorie->name }}">{{$categorie->name}}</span>
-                @endif
+                    @if ($categorie->name == 'Buah')
+                        <span class="tab__btn active-tab" data-target="#{{ $categorie->name }}">{{ $categorie->name }}</span>
+                    @else
+                        <span class="tab__btn" data-target="#{{ $categorie->name }}">{{ $categorie->name }}</span>
+                    @endif
                 @endforeach
                 {{-- <span class="tab__btn" data-target="#popular">Popular</span>
                 <span class="tab__btn" data-target="#new-added">New Added</span> --}}
@@ -24,7 +24,8 @@
                             <div class="product__item">
                                 <div class="product__banner">
                                     <a class="product__images">
-                                        <img src="{{ asset("img/".$buah->image_url) }}" alt="" class="product__img default" />
+                                        <img src="{{ asset('img/' . $buah->image_url) }}" alt=""
+                                            class="product__img default" />
                                     </a>
                                 </div>
                                 <div class="product__content">
@@ -35,7 +36,8 @@
                                     <div class="product__price flex">
                                         <span class="new__price">Rp.{{ $buah->price }}</span>
                                     </div>
-                                    <a class="action__btn cart__btn" aria-label="Add To Cart">
+                                    <a class="action__btn cart__btn add-to-cart" aria-label="Add To Cart"
+                                        data-id="{{ $buah->id }}">
                                         <i class="fi fi-rs-shopping-bag-add"></i>
                                     </a>
                                 </div>
@@ -49,16 +51,18 @@
                             <div class="product__item">
                                 <div class="product__banner">
                                     <a class="product__images">
-                                        <img src="{{ asset("img/".$sayuran->image_url) }}" alt="" class="product__img default" />
+                                        <img src="{{ asset('img/' . $sayuran->image_url) }}" alt=""
+                                            class="product__img default" />
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <span class="product__category">{{ $sayuran->category->name }}</span>
-                                        <h3 class="product__title">{{ $sayuran->name }}</h3>
+                                    <h3 class="product__title">{{ $sayuran->name }}</h3>
                                     <div class="product__price flex">
                                         <span class="new__price">Rp.{{ $sayuran->price }}</span>
                                     </div>
-                                    <a class="action__btn cart__btn" aria-label="Add To Cart">
+                                    <a class="action__btn cart__btn add-to-cart" aria-label="Add To Cart"
+                                        data-id="{{ $sayuran->id }}">
                                         <i class="fi fi-rs-shopping-bag-add"></i>
                                     </a>
                                 </div>
@@ -77,19 +81,21 @@
                     @foreach ($LatesProduct as $terbaru)
                         <div class="product__item swiper-slide">
                             <div class="product__banner">
-                                <a href="details.html" class="product__images">
-                                    <img src="{{ asset("img/".$terbaru->image_url) }}" alt="" class="product__img default" />
+                                <a class="product__images">
+                                    <img src="{{ asset('img/' . $terbaru->image_url) }}" alt=""
+                                        class="product__img default" />
                                 </a>
                             </div>
                             <div class="product__content">
                                 <span class="product__category">{{ $terbaru->category->name }}</span>
-                                <a href="details.html">
+                                <a>
                                     <h3 class="product__title">{{ $terbaru->name }}</h3>
                                 </a>
                                 <div class="product__price flex">
                                     <span class="new__price">{{ $terbaru->price }}</span>
                                 </div>
-                                <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                                <a class="action__btn cart__btn add-to-cart" aria-label="Add To Cart"
+                                    data-id="{{ $terbaru->id }}">
                                     <i class="fi fi-rs-shopping-bag-add"></i>
                                 </a>
                             </div>
@@ -123,4 +129,35 @@
             </div>
         </section>
     </main>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.add-to-cart').click(function(event) {
+                event.preventDefault(); // Mencegah perilaku default tautan
+
+                const productId = $(this).data('id');
+
+                console.log(productId)
+
+                $.ajax({
+                    url: '/add-to-cart', // URL endpoint untuk menambahkan ke keranjang
+                    method: 'POST',
+                    data: {
+                        id: productId,
+                        _token: '{{ csrf_token() }}' // Token CSRF
+                    },
+                    success: function(response) {
+                        // Tampilkan pesan sukses atau pembaruan keranjang
+                        alert('Produk berhasil ditambahkan ke keranjang!');
+                        const total = document.querySelector(".count");
+                        total.innerHTML = response.total
+                        console.log(response); // Lihat respons di konsol
+                    },
+                    error: function(xhr) {
+                        console.error(xhr);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

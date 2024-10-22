@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         $title = "home";
+        $cart = session()->get('cart', []);
         $categories = Category::all();
         $categoriesToFetch = ['Buah', 'Sayuran'];
         $latestProducts = Product::with('category')->orderBy('created_at', 'desc')->take(8)->get();
@@ -24,13 +26,14 @@ class ProductController extends Controller
                 $query->whereIn('name', $categoriesToFetch);
             })->get()
             ->groupBy('category.name');
-        
+
         $data = [
             "Title" => $title,
+            "Total" => count($cart),
             "Categories" => $categories,
             "LatesProduct" => $latestProducts,
             "ProductBuah" => $products["Buah"] ?? collect(),
-            "ProductSayuran" => $products["Sayuran"] ?? collect()
+            "ProductSayuran" => $products["Sayuran"] ?? collect(),
         ];
 
         return view("index", $data);
@@ -38,11 +41,16 @@ class ProductController extends Controller
 
     public function cart()
     {
+        // session()->flush();
         $title = "cart";
+        $cart = session()->get('cart', []);
 
         $data = [
-            "Title" => $title
+            "Title" => $title,
+            "Total" => count($cart),
+            "CartItems" => $cart
         ];
+
         return view("cart", $data);
     }
 }

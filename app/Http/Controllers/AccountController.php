@@ -17,7 +17,8 @@ class AccountController extends Controller
         $data = [
             "Title" => "accounts",
             "Products" => Product::with("category")->get(),
-            "Categories" => Category::all()
+            "Categories" => Category::all(),
+            "Total" => count(session()->get('cart', []))
         ];
         return view("accounts", $data);
     }
@@ -76,7 +77,6 @@ class AccountController extends Controller
 
         $user->update(['password' => Hash::make($validate["password"])]);
         return redirect()->route('accounts')->with('success', 'Change password successfully.');
-
     }
 
     /* delete product */
@@ -84,7 +84,7 @@ class AccountController extends Controller
     {
         $productId = Product::findOrFail($request->id);
 
-        $fullPath = public_path('img/'.$productId->image_url);
+        $fullPath = public_path('img/' . $productId->image_url);
         if (File::exists($fullPath)) {
             File::delete($fullPath);
         }
@@ -92,6 +92,5 @@ class AccountController extends Controller
         $productId->delete();
 
         return redirect()->route('accounts')->with('success', 'Delete Product successfully.');
-        
     }
 }
