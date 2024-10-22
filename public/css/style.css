@@ -739,7 +739,7 @@ table {
 .action__btn::before,
 .action__btn::after,
 .product__item:hover .product__img.default {
-    opacity: 0;
+    opacity: 1;
 }
 
 .product__item:hover {
