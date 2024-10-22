@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
@@ -15,6 +16,7 @@ class AccountController extends Controller
     {
         $data = [
             "Title" => "accounts",
+            "Products" => Product::with("category")->get(),
             "Categories" => Category::all()
         ];
         return view("accounts", $data);
@@ -57,7 +59,6 @@ class AccountController extends Controller
         return redirect()->route('accounts')->with('success', 'User updated successfully.');
     }
 
-
     /* change password */
     public function changePassword(Request $request)
     {
@@ -76,5 +77,21 @@ class AccountController extends Controller
         $user->update(['password' => Hash::make($validate["password"])]);
         return redirect()->route('accounts')->with('success', 'Change password successfully.');
 
+    }
+
+    /* delete product */
+    public function delete(Request $request)
+    {
+        $productId = Product::findOrFail($request->id);
+
+        $fullPath = public_path('img/'.$productId->image_url);
+        if (File::exists($fullPath)) {
+            File::delete($fullPath);
+        }
+
+        $productId->delete();
+
+        return redirect()->route('accounts')->with('success', 'Delete Product successfully.');
+        
     }
 }

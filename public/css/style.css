@@ -142,6 +142,10 @@ table {
     border-radius: 5px;  
 }
 
+.notif span {
+    font-weight: 500;
+}
+
 .success {
     background-color: green;
 }
@@ -604,24 +608,6 @@ table {
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.product__actions {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: flex;
-    column-gap: 0.5rem;
-    transform: translate(-50%, -50%);
-    transition: all 0.2s var(--transition);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -webkit-transition: all 0.2s var(--transition);
-    -moz-transition: all 0.2s var(--transition);
-    -ms-transition: all 0.2s var(--transition);
-    -o-transition: all 0.2s var(--transition);
 }
 
 .action__btn {
@@ -1771,6 +1757,7 @@ table {
     font-size: var(--small-font-size);
 }
 
+
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
 @media screen and (max-width: 1400px) {
@@ -1786,6 +1773,76 @@ table {
     .accounts__container {
         grid-template-columns: 3fr 9fr;
     }
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+      }
+      
+      table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+      }
+      
+      table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+      }
+
+      table th {
+        color: var(--title-color);
+      }
+      
+      table th,
+      table td {
+        padding: .625em;
+        text-align: center;
+      }
+      
+      table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      .img-table-product {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .action-table {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      } 
+      
+      #edit, #delete {
+        font-size: 1.5rem;
+      }
+
+      #edit {
+        color: var(--text-color);
+      }
+
+      #edit:hover {
+        color: var(--first-color);
+      }
+
+      #delete {
+        color: rgb(161, 0, 0);
+      }
+
+      #delete:hover {
+        color: rgb(221, 24, 24);
+      }
 }
 
 @media screen and (max-width: 1200px) {
@@ -2132,6 +2189,49 @@ table {
     .header__search {
         max-width: 300px;
     }
+
+        table {
+          border: 0;
+        }
+      
+        table caption {
+          font-size: 1.3em;
+        }
+        
+        table thead {
+          border: none;
+          clip: rect(0 0 0 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+        }
+        
+        table tr {
+          border-bottom: 3px solid #ddd;
+          display: block;
+          margin-bottom: .625em;
+        }
+        
+        table td {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          font-size: .8em;
+          text-align: right;
+        }
+        
+        table td::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+        
+        table td:last-child {
+          border-bottom: 0;
+        }
 }
 
 @media screen and (max-width: 350px) {

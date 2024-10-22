@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,5 +36,19 @@ class DatabaseSeeder extends Seeder
                 "password" => bcrypt("password")
             ]
         );
+
+        $nameProduct = ["buah garing", "buah melon", "buah gupui", "buah anjay", "buah kacang", "wes emboh", "buah alpukat", "melon", "salak"];
+        $imageProduct = ["product-1-1.jpg", "product-2-1.jpg", "product-3-1.jpg", "product-4-1.jpg", "product-5-1.jpg", "product-6-1.jpg", "product-7-1.jpg", "product-8-1.jpg", "product-9-1.jpg"];
+        for ($i=0; $i < 9; $i++) { 
+            Product::create(
+                [
+                    "name" => $nameProduct[$i],
+                    "price" => number_format(preg_replace('/\D/', '', $i.'000'), 0, ',', '.'),
+                    "image_url" => $imageProduct[$i],
+                    "category_id" => mt_rand(1, 2),
+                    "stock" => 20
+                ]
+            );
+        }
     }
 }

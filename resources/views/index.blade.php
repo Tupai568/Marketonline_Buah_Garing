@@ -2,133 +2,109 @@
 @section('container')
     <!--=============== MAIN ===============-->
     <main class="main">
-        <!--=============== HOME ===============-->
-        <section class="home section--lg">
-            <div class="home__container container grid">
-                <div class="home__content">
-                    <span class="home__subtitle">Camilan Menggugah Selera</span>
-                    <h1 class="home__title">
-                        Camilan Enak <br><span>Kering & Renyah</span>
-                    </h1>
-                    <p class="home__description">
-                        Camilan Praktis untuk Segala Kesempatan
-                    </p>
-                    <a href="shop.html" class="btn">Shop Now</a>
-                </div>
-                <img src="{{ asset('img/buah.png') }}" class="home__img" alt="hats" />
-            </div>
-        </section>
-
-        <section class=""></section>
 
         <!--=============== PRODUCTS ===============-->
         <section class="products container section">
+            <div class="tab__btns">
+                @foreach ($Categories as $categorie)
+                @if ($categorie->name == "Buah")
+                    <span class="tab__btn active-tab" data-target="#{{ $categorie->name }}">{{$categorie->name}}</span>
+                @else
+                    <span class="tab__btn" data-target="#{{ $categorie->name }}">{{$categorie->name}}</span>
+                @endif
+                @endforeach
+                {{-- <span class="tab__btn" data-target="#popular">Popular</span>
+                <span class="tab__btn" data-target="#new-added">New Added</span> --}}
+            </div>
+
             <div class="tab__items">
-                <div class="tab__item active-tab" content id="featured">
+                <div class="tab__item active-tab" content id="Buah">
                     <div class="products__container grid">
-                        <div class="product__item">
-                            <div class="product__banner">
-                                <a href="details.html" class="product__images">
-                                    <img src="{{ asset('img/Snack.jpg') }}" alt="" class="product__img default" />
-                                    <img src="assets/img/product-1-2.jpg" alt="" class="product__img hover" />
-                                </a>
-                                <div class="product__actions">
-                                    <a href="#" class="action__btn" aria-label="Quick View">
-                                        <i class="fi fi-rs-eye"></i>
+                        @foreach ($ProductBuah as $buah)
+                            <div class="product__item">
+                                <div class="product__banner">
+                                    <a class="product__images">
+                                        <img src="{{ asset("img/".$buah->image_url) }}" alt="" class="product__img default" />
                                     </a>
-                                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
-                                        <i class="fi fi-rs-heart"></i>
+                                </div>
+                                <div class="product__content">
+                                    <span class="product__category">{{ $buah->category->name }}</span>
+                                    <a>
+                                        <h3 class="product__title">{{ $buah->name }}</h3>
                                     </a>
-                                    <a href="#" class="action__btn" aria-label="Compare">
-                                        <i class="fi fi-rs-shuffle"></i>
+                                    <div class="product__price flex">
+                                        <span class="new__price">Rp.{{ $buah->price }}</span>
+                                    </div>
+                                    <a class="action__btn cart__btn" aria-label="Add To Cart">
+                                        <i class="fi fi-rs-shopping-bag-add"></i>
                                     </a>
                                 </div>
                             </div>
-                            <div class="product__content">
-                                <span class="product__category">Snack</span>
-                                <a href="details.html">
-                                    <h3 class="product__title">Buah Garing Pisang</h3>
-                                </a>
-                                <div class="product__price flex">
-                                    <span class="new__price">Rp.25,000</span>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="tab__item" content id="Sayuran">
+                    <div class="products__container grid">
+                        @foreach ($ProductSayuran as $sayuran)
+                            <div class="product__item">
+                                <div class="product__banner">
+                                    <a class="product__images">
+                                        <img src="{{ asset("img/".$sayuran->image_url) }}" alt="" class="product__img default" />
+                                    </a>
                                 </div>
-                                <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
-                                    <i class="fi fi-rs-shopping-bag-add"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="product__banner">
-                                <a href="details.html" class="product__images">
-                                    <img src="{{ asset('img/Snack.jpg') }}" alt="" class="product__img default" />
-                                    <img src="assets/img/product-1-2.jpg" alt="" class="product__img hover" />
-                                </a>
-                                <div class="product__actions">
-                                    <a href="#" class="action__btn" aria-label="Quick View">
-                                        <i class="fi fi-rs-eye"></i>
-                                    </a>
-                                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
-                                        <i class="fi fi-rs-heart"></i>
-                                    </a>
-                                    <a href="#" class="action__btn" aria-label="Compare">
-                                        <i class="fi fi-rs-shuffle"></i>
+                                <div class="product__content">
+                                    <span class="product__category">{{ $sayuran->category->name }}</span>
+                                        <h3 class="product__title">{{ $sayuran->name }}</h3>
+                                    <div class="product__price flex">
+                                        <span class="new__price">Rp.{{ $sayuran->price }}</span>
+                                    </div>
+                                    <a class="action__btn cart__btn" aria-label="Add To Cart">
+                                        <i class="fi fi-rs-shopping-bag-add"></i>
                                     </a>
                                 </div>
                             </div>
-                            <div class="product__content">
-                                <span class="product__category">Snack</span>
-                                <a href="details.html">
-                                    <h3 class="product__title">Buah Garing Pisang</h3>
-                                </a>
-                                <div class="product__price flex">
-                                    <span class="new__price">Rp.25,000</span>
-                                </div>
-                                <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
-                                    <i class="fi fi-rs-shopping-bag-add"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product__item">
-                            <div class="product__banner">
-                                <a href="details.html" class="product__images">
-                                    <img src="{{ asset('img/Snack.jpg') }}" alt="" class="product__img default" />
-                                    <img src="assets/img/product-1-2.jpg" alt="" class="product__img hover" />
-                                </a>
-                                <div class="product__actions">
-                                    <a href="#" class="action__btn" aria-label="Quick View">
-                                        <i class="fi fi-rs-eye"></i>
-                                    </a>
-                                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
-                                        <i class="fi fi-rs-heart"></i>
-                                    </a>
-                                    <a href="#" class="action__btn" aria-label="Compare">
-                                        <i class="fi fi-rs-shuffle"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product__content">
-                                <span class="product__category">Snack</span>
-                                <a href="details.html">
-                                    <h3 class="product__title">Buah Garing Pisang</h3>
-                                </a>
-                                <div class="product__price flex">
-                                    <span class="new__price">Rp.25,000</span>
-                                </div>
-                                <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
-                                    <i class="fi fi-rs-shopping-bag-add"></i>
-                                </a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </section>
 
-        <!--=============== DEALS ===============-->
-
         <!--=============== NEW ARRIVALS ===============-->
+        <section class="new__arrivals container section">
+            <h3 class="section__title"><span>New</span> Products</h3>
+            <div class="new__container swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($LatesProduct as $terbaru)
+                        <div class="product__item swiper-slide">
+                            <div class="product__banner">
+                                <a href="details.html" class="product__images">
+                                    <img src="{{ asset("img/".$terbaru->image_url) }}" alt="" class="product__img default" />
+                                </a>
+                            </div>
+                            <div class="product__content">
+                                <span class="product__category">{{ $terbaru->category->name }}</span>
+                                <a href="details.html">
+                                    <h3 class="product__title">{{ $terbaru->name }}</h3>
+                                </a>
+                                <div class="product__price flex">
+                                    <span class="new__price">{{ $terbaru->price }}</span>
+                                </div>
+                                <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                                    <i class="fi fi-rs-shopping-bag-add"></i>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
 
-        <!--=============== SHOWCASE ===============-->
+                <div class="swiper-button-prev">
+                    <i class="fi fi-rs-angle-left"></i>
+                </div>
+                <div class="swiper-button-next">
+                    <i class="fi fi-rs-angle-right"></i>
+                </div>
+            </div>
+        </section>
 
         <!--=============== NEWSLETTER ===============-->
         <section class="newsletter section home__newsletter">

@@ -15,21 +15,34 @@ class ProductController extends Controller
     {
         $title = "home";
         $categories = Category::all();
+        $categoriesToFetch = ['Buah', 'Sayuran'];
+        $latestProducts = Product::with('category')->orderBy('created_at', 'desc')->take(8)->get();
 
+        // Mengambil produk dengan kategori yang ditentukan
+        $products = Product::with('category')
+            ->whereHas('category', function ($query) use ($categoriesToFetch) {
+                $query->whereIn('name', $categoriesToFetch);
+            })->get()
+            ->groupBy('category.name');
+        
         $data = [
             "Title" => $title,
-            "Categories" => $categories
+            "Categories" => $categories,
+            "LatesProduct" => $latestProducts,
+            "ProductBuah" => $products["Buah"] ?? collect(),
+            "ProductSayuran" => $products["Sayuran"] ?? collect()
         ];
+
         return view("index", $data);
     }
 
-    public function shop()
+    public function cart()
     {
-        $title = "shop";
+        $title = "cart";
 
         $data = [
             "Title" => $title
         ];
-        return view("shop", $data);
+        return view("cart", $data);
     }
 }

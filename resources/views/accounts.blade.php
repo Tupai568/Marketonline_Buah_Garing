@@ -10,7 +10,7 @@
         <!--=============== BREADCRUMB ===============-->
         <section class="breadcrumb">
             <ul class="breadcrumb__list flex container">
-                <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+                <li><a href="{{ route("home") }}" class="breadcrumb__link">Home</a></li>
                 <li><span class="breadcrumb__link">></span></li>
                 <li><span class="breadcrumb__link">Account</span></li>
             </ul>
@@ -47,13 +47,45 @@
                 </div>
                 <div class="tabs__content">
                     <div class="tab__content active-tab" content id="dashboard">
-                        <h3 class="tab__header">Hello Rosie</h3>
+                        <h3 class="tab__header">Products</h3>
                         <div class="tab__body">
-                            <p class="tab__description">
-                                From your account dashboard. you can easily check & view your
-                                recent order, manage your shipping and billing addresses and
-                                edit your password and account details
-                            </p>
+                            <table>
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Categories</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Products as $product)
+                                    <tr>
+                                      <td data-label="Image"><img src="{{ asset("img/".$product->image_url) }}" alt="" class="img-table-product"></td>
+                                      <td data-label="Name">{{ $product->name }}</td>
+                                      <td data-label="Price">{{ $product->price }}</td>
+                                      <td data-label="Stock">{{ $product->stock }}</td> 
+                                      <td data-label="Total">{{ $product->category->name }}</td>
+                                      <td data-label="Action">
+                                          <div class="action-table">
+                                                  <button type="submit" class="btn-table">
+                                                      <i class="fi fi-rs-pen-square" id="edit"></i>
+                                                  </button>
+                                              <form action="{{ route("delete") }}" method="post" id="delete-product">
+                                                  @csrf
+                                                  <input type="hidden" name="id" value="{{ $product->id }}">
+                                                  <button type="submit" onclick="confirmDelete()">
+                                                      <i class="fi fi-rs-trash" id="delete"></i>
+                                                  </button>
+                                              </form>
+                                          </div>
+                                      </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                              </table>
                         </div>
                     </div>
                     <div class="tab__content" content id="orders">
@@ -116,7 +148,7 @@
                                 @csrf
                                 <input type="text" placeholder="Name Product" class="form__input" name="name" />
                                 <input type="file" name="image_url">
-                                <input type="text" placeholder="Price Product" class="form__input" name="price" />
+                                <input type="number" placeholder="Price Product" class="form__input" name="price" />
                                 <input type="number" placeholder="Total Stock" class="form__input" name="stock" />
                                 <select id="Categories" class="form__input select" name="category_id">
                                     @foreach ($Categories as $Categorie)
@@ -181,4 +213,17 @@
             </div>
         </section>
     </main>
+
+    <script type="text/javascript">
+        function confirmDelete() {
+            if (confirm("Yakin Ingin Menghapus?")) {
+                // Jika pengguna mengonfirmasi, kirim formulir
+                document.getElementById('delete-product').submit();
+            }else {
+                // Jika pengguna membatalkan, hentikan pengiriman formulir
+                event.preventDefault();
+            }
+            // Jika pengguna membatalkan, tidak ada tindakan yang diambil
+        }
+    </script>
 @endsection

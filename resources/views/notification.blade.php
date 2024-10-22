@@ -14,3 +14,15 @@
             <div class="notif warning"> <span>{!! session('warning') !!}</span></div>
         </div>
     @endif
+
+    <script type="text/javascript">
+        window.onload = function() {
+            let notification = document.querySelector(".notification");
+            if (notification) {
+                setTimeout(function() {
+                    // Menghapus elemen span dari DOM
+                    notification.parentNode.removeChild(notification);
+                }, 5000);
+            }
+        }
+    </script>

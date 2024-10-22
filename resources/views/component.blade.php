@@ -63,11 +63,7 @@
                 </div>
             </div>
             <div class="header__user-actions">
-                <a href="wishlist.html" class="header__action-btn" title="Wishlist">
-                    <img src="{{ asset('img/icon-heart.svg') }}" alt="" />
-                    <span class="count">3</span>
-                </a>
-                <a href="cart.html" class="header__action-btn" title="Cart">
+                <a href="{{ route("cart") }}" class="header__action-btn" title="Cart">
                     <img src="{{ asset('img/icon-cart.svg') }}" alt="" />
                     <span class="count">3</span>
                 </a>
