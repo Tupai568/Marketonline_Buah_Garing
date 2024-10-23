@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use App\Http\Controllers\CartController;
 
 
 class ProductController extends Controller
@@ -51,7 +52,6 @@ class ProductController extends Controller
         }
 
         $ongkir = 7000;
-        $totalKeseluruhan = $totalHarga + $ongkir;
 
         $data = [
             "Title" => $title,
@@ -59,7 +59,7 @@ class ProductController extends Controller
             "CartItems" => $cart,
             "Total" => count($cart),
             "TotalHarga" => $totalHarga,
-            "TotalKeseluruhan" => $totalKeseluruhan,
+            "TotalKeseluruhan" => CartController::totalAmount(),
         ];
 
         return view("cart", $data);

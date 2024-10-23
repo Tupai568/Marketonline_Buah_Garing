@@ -18,6 +18,10 @@
     <!--=============== AJAX ===============-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!--=============== MIDTRANS ===============-->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+
 
     <title>Snack Dari Buah Garing - {{ $Title }} </title>
 </head>

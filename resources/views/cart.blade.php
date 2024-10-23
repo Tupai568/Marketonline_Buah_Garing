@@ -7,8 +7,6 @@
             <ul class="breadcrumb__list flex container">
                 <li><a href="{{ route('home') }}" class="breadcrumb__link">Home</a></li>
                 <li><span class="breadcrumb__link"></span>></li>
-                <li><span class="breadcrumb__link">Shop</span></li>
-                <li><span class="breadcrumb__link"></span>></li>
                 <li><span class="breadcrumb__link">Cart</span></li>
             </ul>
         </section>
@@ -29,22 +27,24 @@
                     </thead>
                     <tbody class="dataCart">
                         @foreach ($CartItems as $item)
-                        <tr>
-                            <td data-label="Image"><img src="{{ asset("img/".$item['image']) }}" alt="" class="img-table-product"></td>
-                            <td data-label="Name">{{ $item['name']}}</td>
-                            <td data-label="Price">{{ $item['price'] }}</td>
-                            <td data-label="Quantity">{{ $item['quantity'] }}</td> 
-                            <td data-label="Subtotal">{{ $item['total_amount'] }}</td>
-                            <td data-label="Delete"><i class="fi fi-rs-trash table__trash delete-cart" data-id="{{ $item['id'] }}"></i></div>
-                            </td>
-                          </tr>
+                            <tr>
+                                <td data-label="Image"><img src="{{ asset('img/' . $item['image']) }}" alt=""
+                                        class="img-table-product"></td>
+                                <td data-label="Name">{{ $item['name'] }}</td>
+                                <td data-label="Price">{{ $item['price'] }}</td>
+                                <td data-label="Quantity">{{ $item['quantity'] }}</td>
+                                <td data-label="Subtotal">{{ $item['total_amount'] }}</td>
+                                <td data-label="Delete"><i class="fi fi-rs-trash table__trash delete-cart"
+                                        data-id="{{ $item['id'] }}"></i>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
 
             <div class="cart__actions">
-                <a href="{{ route("home") }}" class="btn flex btn__md">
+                <a href="{{ route('home') }}" class="btn flex btn__md">
                     <i class="fi-rs-shopping-bag"></i> Continue Shopping
                 </a>
             </div>
@@ -98,14 +98,21 @@
                         </tr>
                         <tr>
                             <td><span class="cart__total-title">Total</span></td>
-                            <td><span class="cart__total-price">{{ number_format($TotalKeseluruhan, 0, ',', '.') }}</span></td>
+                            <td><span class="cart__total-price">{{ number_format($TotalKeseluruhan, 0, ',', '.') }}</span>
+                            </td>
                         </tr>
                     </table>
                     <form action="{{ route('ceckout') }}" method="post" class="form grid">
                         @csrf
-                        <input type="text" placeholder="Name" class="form__input" name="customer_name" required/>
-                        <input type="tel" placeholder="Phone" class="form__input" name="customer_phone" required/>
-                        <input type="text" placeholder="Address" class="form__input" name="customer_address" required />
+                        <input type="text" placeholder="Name"
+                            class="form__input {{ $errors->has('customer_name') ? 'input-danger' : '' }}"
+                            name="customer_name" value="{{ old('customer_name') }}" />
+                        <input type="tel" placeholder="Phone"
+                            class="form__input {{ $errors->has('customer_phone') ? 'input-danger' : '' }}"
+                            name="customer_phone" value="{{ old('customer_phone') }}" />
+                        <input type="text" placeholder="Address"
+                            class="form__input {{ $errors->has('customer_address') ? 'input-danger' : '' }}"
+                            name="customer_address" value="{{ old('customer_address') }}" />
                         <button type="submit" class="btn flex btn--md">
                             <i class="fi fi-rs-box-alt ceckout"></i> Proceed To Checkout
                         </button>
@@ -153,6 +160,37 @@
                         console.error(xhr);
                     }
                 });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token.
+            // Also, use the embedId that you defined in the div above, here.
+            window.snap.embed('YOUR_SNAP_TOKEN', {
+                embedId: 'snap-container',
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
+                }
             });
         });
     </script>

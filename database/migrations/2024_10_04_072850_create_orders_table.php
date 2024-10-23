@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_phone');
             $table->timestamp('order_date')->useCurrent();
             $table->integer('total_amount');
+            $table->string('status')->default("unpaid");
             $table->timestamps();
         });
     }

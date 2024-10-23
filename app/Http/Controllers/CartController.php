@@ -29,7 +29,7 @@ class CartController extends Controller
                 'price' => $product->price,
             ];
         }
-        
+
         session()->put('cart', $cart);
         return response()->json([
             'total' => count($cart),
@@ -55,5 +55,19 @@ class CartController extends Controller
             'id' => $product->id,
             'cart' => $cart
         ]);
+    }
+
+    public static function totalAmount()
+    {
+        $cart = session()->get('cart', []);
+
+        $totalHarga = 0;
+        foreach ($cart as $result) {
+            $totalHarga += $result['total_amount']; // Menjumlahkan hanya harga dari setiap produk
+        }
+
+        $ongkir = 7000;
+        $totalKeseluruhan = $totalHarga + $ongkir;
+        return $totalKeseluruhan;
     }
 }
