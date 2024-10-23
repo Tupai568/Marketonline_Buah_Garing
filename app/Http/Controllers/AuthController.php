@@ -11,7 +11,8 @@ class AuthController extends Controller
     public function login()
     {
         $data = [
-            "Title" => "login"
+            "Title" => "login",
+            "Total" => count(session()->get('cart', []))
         ];
 
         return view("login", $data);

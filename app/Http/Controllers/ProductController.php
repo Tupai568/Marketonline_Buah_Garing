@@ -45,10 +45,21 @@ class ProductController extends Controller
         $title = "cart";
         $cart = session()->get('cart', []);
 
+        $totalHarga = 0;
+        foreach ($cart as $result) {
+            $totalHarga += $result['total_amount']; // Menjumlahkan hanya harga dari setiap produk
+        }
+
+        $ongkir = 7000;
+        $totalKeseluruhan = $totalHarga + $ongkir;
+
         $data = [
             "Title" => $title,
+            "Ongkir" => $ongkir,
+            "CartItems" => $cart,
             "Total" => count($cart),
-            "CartItems" => $cart
+            "TotalHarga" => $totalHarga,
+            "TotalKeseluruhan" => $totalKeseluruhan,
         ];
 
         return view("cart", $data);

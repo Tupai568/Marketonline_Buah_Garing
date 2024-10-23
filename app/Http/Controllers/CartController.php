@@ -21,6 +21,7 @@ class CartController extends Controller
             $cart[$productId]['total_amount'] += $harga;
         } else {
             $cart[$productId] = [
+                'id' => $product->id,
                 'image' => $product->image_url,
                 'name' => $product->name,
                 'total_amount' => $harga,
@@ -28,12 +29,31 @@ class CartController extends Controller
                 'price' => $product->price,
             ];
         }
-
+        
         session()->put('cart', $cart);
-
         return response()->json([
             'total' => count($cart),
             'items' => array_values($cart) // Mengembalikan daftar produk di keranjang
+        ]);
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $product = Product::find($request->input('id'));
+        $cart = session()->get('cart');
+
+        // Jika cart tidak kosong
+        if ($cart) {
+            // Menghapus item berdasarkan ID
+            if (isset($cart[$product->id])) {
+                unset($cart[$product->id]);
+                session()->put('cart', $cart);
+            }
+        }
+
+        return response()->json([
+            'id' => $product->id,
+            'cart' => $cart
         ]);
     }
 }

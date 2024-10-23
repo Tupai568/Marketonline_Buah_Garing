@@ -16,7 +16,7 @@
         <!--=============== CART ===============-->
         <section class="cart section--lg container">
             <div class="table__container">
-                <table class="table">
+                <table>
                     <thead>
                         <tr>
                             <th>Image</th>
@@ -24,37 +24,27 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Subtotal</th>
-                            <th>Rename</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="dataCart">
                         @foreach ($CartItems as $item)
-                            <tr>
-                                <td>
-                                    <img src="{{ asset('img/' . $item['image']) }}" alt="" class="table__img" />
-                                </td>
-                                <td>
-                                    <h3 class="table__title">
-                                        {{ $item['name'] }}
-                                    </h3>
-                                </td>
-                                <td>
-                                    <span class="table__price">{{ $item['price'] }}</span>
-                                </td>
-                                <td><span class="quantity">{{ $item['quantity'] }}</span></td>
-                                <td><span class="subtotal">{{ $item['total_amount'] }}</span></td>
-                                <td><i class="fi fi-rs-trash table__trash"></i></td>
-                            </tr>
+                        <tr>
+                            <td data-label="Image"><img src="{{ asset("img/".$item['image']) }}" alt="" class="img-table-product"></td>
+                            <td data-label="Name">{{ $item['name']}}</td>
+                            <td data-label="Price">{{ $item['price'] }}</td>
+                            <td data-label="Quantity">{{ $item['quantity'] }}</td> 
+                            <td data-label="Subtotal">{{ $item['total_amount'] }}</td>
+                            <td data-label="Delete"><i class="fi fi-rs-trash table__trash delete-cart" data-id="{{ $item['id'] }}"></i></div>
+                            </td>
+                          </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
 
             <div class="cart__actions">
-                <a href="#" class="btn flex btn__md">
-                    <i class="fi-rs-shuffle"></i> Update Cart
-                </a>
-                <a href="#" class="btn flex btn__md">
+                <a href="{{ route("home") }}" class="btn flex btn__md">
                     <i class="fi-rs-shopping-bag"></i> Continue Shopping
                 </a>
             </div>
@@ -100,20 +90,26 @@
                     <table class="cart__total-table">
                         <tr>
                             <td><span class="cart__total-title">Cart Subtotal</span></td>
-                            <td><span class="cart__total-price">$240.00</span></td>
+                            <td><span class="cart__total-price">{{ number_format($TotalHarga, 0, ',', '.') }}</span></td>
                         </tr>
                         <tr>
-                            <td><span class="cart__total-title">Shipping</span></td>
-                            <td><span class="cart__total-price">$10.00</span></td>
+                            <td><span class="cart__total-title">Ongkir</span></td>
+                            <td><span class="cart__total-price">{{ number_format($Ongkir, 0, ',', '.') }}</span></td>
                         </tr>
                         <tr>
                             <td><span class="cart__total-title">Total</span></td>
-                            <td><span class="cart__total-price">$250.00</span></td>
+                            <td><span class="cart__total-price">{{ number_format($TotalKeseluruhan, 0, ',', '.') }}</span></td>
                         </tr>
                     </table>
-                    <a href="checkout.html" class="btn flex btn--md">
-                        <i class="fi fi-rs-box-alt"></i> Proceed To Checkout
-                    </a>
+                    <form action="{{ route('ceckout') }}" method="post" class="form grid">
+                        @csrf
+                        <input type="text" placeholder="Name" class="form__input" name="customer_name" required/>
+                        <input type="tel" placeholder="Phone" class="form__input" name="customer_phone" required/>
+                        <input type="text" placeholder="Address" class="form__input" name="customer_address" required />
+                        <button type="submit" class="btn flex btn--md">
+                            <i class="fi fi-rs-box-alt ceckout"></i> Proceed To Checkout
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -135,4 +131,29 @@
             </div>
         </section>
     </main>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.delete-cart').click(function(event) {
+                event.preventDefault(); // Mencegah perilaku default tautan
+
+                const productId = $(this).data('id');
+                $.ajax({
+                    url: '/delete-cart', // URL endpoint untuk menambahkan ke keranjang
+                    method: 'POST',
+                    data: {
+                        id: productId,
+                        _token: '{{ csrf_token() }}' // Token CSRF
+                    },
+                    success: function(response) {
+                        // Tampilkan pesan sukses atau pembaruan keranjang
+                        location.reload()
+                    },
+                    error: function(xhr) {
+                        console.error(xhr);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

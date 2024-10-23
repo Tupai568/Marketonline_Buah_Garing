@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             Product::create(
                 [
                     "name" => $nameProduct[$i],
-                    "price" => number_format(preg_replace('/\D/', '', $i.'000'), 0, ',', '.'),
+                    "price" => $i."000",
                     "image_url" => $imageProduct[$i],
                     "category_id" => mt_rand(1, 2),
                     "stock" => 20

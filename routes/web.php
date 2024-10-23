@@ -4,12 +4,15 @@ use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 
 
 Route::get('/', [ProductController::class, "index"])->name('home');
 Route::get('/cart', [ProductController::class, "cart"])->name('cart');
 Route::post('/add-to-cart', [CartController::class, "addToCart"])->name('addToCart');
+Route::post('/delete-cart', [CartController::class, "deleteCart"])->name('deleteCart');
+Route::post('/ceckout', [PaymentController::class, "ceckout"])->name('ceckout');
 
 Route::middleware("guest")->group(function () {
     Route::get('/login', [AuthController::class, "login"])->name('login');
