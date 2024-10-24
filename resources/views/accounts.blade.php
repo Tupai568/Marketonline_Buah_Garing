@@ -49,7 +49,7 @@
                     <div class="tab__content active-tab" content id="dashboard">
                         <h3 class="tab__header">Products</h3>
                         <div class="tab__body">
-                            <table>
+                            <table class="placed__order-table">
                                 <thead>
                                   <tr>
                                     <th scope="col">Image</th>

@@ -439,6 +439,11 @@ table {
     -o-transition: all 0.4s var(--transition);
 }
 
+.total {
+    background-color: transparent;
+    color: var(--first-color);
+}
+
 .btn:hover {
     background-color: transparent;
     color: var(--first-color);
@@ -1406,35 +1411,6 @@ table {
     border-bottom: 1px solid var(--border-color-alt);
 }
 
-.table thead tr th:nth-child(1),
-.table tbody tr td:nth-child(1) {
-    width: 216px;
-}
-
-.table thead tr th:nth-child(2),
-.table tbody tr td:nth-child(2) {
-    width: 400px;
-}
-
-.table thead tr th:nth-child(3),
-.table tbody tr td:nth-child(3) {
-    width: 108px;
-}
-
-.table thead tr th:nth-child(4),
-.table tbody tr td:nth-child(4) {
-    width: 220px;
-}
-
-.table thead tr th:nth-child(5),
-.table tbody tr td:nth-child(5) {
-    width: 200px;
-}
-
-.table thead tr th:nth-child(6),
-.table tbody tr td:nth-child(6) {
-    width: 152px;
-}
 
 .table__img {
     width: 80px;
@@ -1780,7 +1756,7 @@ table {
         grid-template-columns: 3fr 9fr;
     }
 
-    table {
+    .placed__order-table {
         border: 1px solid #ccc;
         border-collapse: collapse;
         margin: 0;
@@ -1789,28 +1765,28 @@ table {
         table-layout: fixed;
     }
 
-    table caption {
+    .placed__order-table caption {
         font-size: 1.5em;
         margin: .5em 0 .75em;
     }
 
-    table tr {
+    .placed__order-table tr {
         background-color: #f8f8f8;
         border: 1px solid #ddd;
         padding: .35em;
     }
 
-    table th {
+    .placed__order-table th {
         color: var(--title-color);
     }
 
-    table th,
-    table td {
+    .placed__order-table th,
+    .placed__order-table td {
         padding: .625em;
         text-align: center;
     }
 
-    table th {
+    .placed__order-table th {
         font-size: .85em;
         letter-spacing: .1em;
         text-transform: uppercase;
@@ -1849,6 +1825,23 @@ table {
 
     #delete:hover {
         color: rgb(221, 24, 24);
+    }
+
+    .table {
+        border: 1px solid var(--border-color-alt);
+    }
+
+    .cekout-table {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .item-cekout {
+        width: 50%;
+    }
+
+    #snap-container {
+        width: 100%;
     }
 }
 
@@ -2067,15 +2060,15 @@ table {
 
     .table thead tr th:nth-child(1),
     .table tbody tr td:nth-child(1) {
-        width: 140px;
+        width: 80px;
     }
 
-    .table thead tr th:nth-child(2),
+    /* .table thead tr th:nth-child(2),
     .table tbody tr td:nth-child(2) {
-        width: 330px;
-    }
+        width: 80px;
+    } */
 
-    .table thead tr th:nth-child(3),
+    /* .table thead tr th:nth-child(3),
     .table tbody tr td:nth-child(3) {
         width: 80px;
     }
@@ -2093,7 +2086,7 @@ table {
     .table thead tr th:nth-child(6),
     .table tbody tr td:nth-child(6) {
         width: 100px;
-    }
+    } */
 }
 
 @media screen and (max-width: 768px) {
@@ -2120,6 +2113,24 @@ table {
 
     .home__img {
         max-width: 300px;
+    }
+
+    .cekout-table {
+        flex-direction: column;
+    }
+
+    .item-cekout {
+        width: 100%;
+    }
+
+    .item-cekout:first-child {
+        margin-top: 2rem;
+        border: 1px solid var(--title-color);
+        order: 2;
+    }
+
+    .item-cekout:last-child {
+        order: 1;
     }
 }
 
@@ -2199,15 +2210,15 @@ table {
         max-width: 300px;
     }
 
-    table {
+    .placed__order-table {
         border: 0;
     }
 
-    table caption {
+    .placed__order-table caption {
         font-size: 1.3em;
     }
 
-    table thead {
+    .placed__order-table thead {
         border: none;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -2218,27 +2229,27 @@ table {
         width: 1px;
     }
 
-    table tr {
+    .placed__order-table tr {
         border-bottom: 3px solid #ddd;
         display: block;
         margin-bottom: .625em;
     }
 
-    table td {
+    .placed__order-table td {
         border-bottom: 1px solid #ddd;
         display: block;
         font-size: .8em;
         text-align: right;
     }
 
-    table td::before {
+    .placed__order-table td::before {
         content: attr(data-label);
         float: left;
         font-weight: bold;
         text-transform: uppercase;
     }
 
-    table td:last-child {
+    .placed__order-table td:last-child {
         border-bottom: 0;
     }
 }

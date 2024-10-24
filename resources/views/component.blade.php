@@ -41,12 +41,12 @@
         </div>
 
         <nav class="nav container">
-            <a href="index.html" class="nav__logo">
+            <a href="{{route('home')}}" class="nav__logo">
                 <img class="nav__logo-img" src="{{ asset('img/logo.png') }}" alt="website logo" />
             </a>
             <div class="nav__menu" id="nav-menu">
                 <div class="nav__menu-top">
-                    <a href="index.html" class="nav__menu-logo">
+                    <a href="{{ route('home') }}" class="nav__menu-logo">
                         <img src="{{ asset('img/logo.png') }}" alt="">
                     </a>
                     <div class="nav__close" id="nav-close">

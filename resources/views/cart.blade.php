@@ -14,7 +14,7 @@
         <!--=============== CART ===============-->
         <section class="cart section--lg container">
             <div class="table__container">
-                <table>
+                <table class="placed__order-table">
                     <thead>
                         <tr>
                             <th>Image</th>
@@ -54,70 +54,49 @@
             </div>
 
             <div class="cart__group grid">
-                <div>
-                    <div class="cart__shippinp">
-                        <h3 class="section__title">Calculate Shipping</h3>
-                        <form action="" class="form grid">
-                            <input type="text" class="form__input" placeholder="State / Country" />
-                            <div class="form__group grid">
-                                <input type="text" class="form__input" placeholder="City" />
-                                <input type="text" class="form__input" placeholder="PostCode" />
-                            </div>
-                            <div class="form__btn">
-                                <button class="btn flex btn--sm">
-                                    <i class="fi-rs-shuffle"></i> Update
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="cart__coupon">
-                        <h3 class="section__title">Apply Coupon</h3>
-                        <form action="" class="coupon__form form grid">
-                            <div class="form__group grid">
-                                <input type="text" class="form__input" placeholder="Enter Your Coupon" />
-                                <div class="form__btn">
-                                    <button class="btn flex btn--sm">
-                                        <i class="fi-rs-label"></i> Aplly
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="cart__total">
-                    <h3 class="section__title">Cart Totals</h3>
-                    <table class="cart__total-table">
-                        <tr>
-                            <td><span class="cart__total-title">Cart Subtotal</span></td>
-                            <td><span class="cart__total-price">{{ number_format($TotalHarga, 0, ',', '.') }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="cart__total-title">Ongkir</span></td>
-                            <td><span class="cart__total-price">{{ number_format($Ongkir, 0, ',', '.') }}</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="cart__total-title">Total</span></td>
-                            <td><span class="cart__total-price">{{ number_format($TotalKeseluruhan, 0, ',', '.') }}</span>
-                            </td>
-                        </tr>
-                    </table>
-                    <form action="{{ route('ceckout') }}" method="post" class="form grid">
-                        @csrf
-                        <input type="text" placeholder="Name"
-                            class="form__input {{ $errors->has('customer_name') ? 'input-danger' : '' }}"
-                            name="customer_name" value="{{ old('customer_name') }}" />
-                        <input type="tel" placeholder="Phone"
-                            class="form__input {{ $errors->has('customer_phone') ? 'input-danger' : '' }}"
-                            name="customer_phone" value="{{ old('customer_phone') }}" />
-                        <input type="text" placeholder="Address"
-                            class="form__input {{ $errors->has('customer_address') ? 'input-danger' : '' }}"
-                            name="customer_address" value="{{ old('customer_address') }}" />
-                        <button type="submit" class="btn flex btn--md">
-                            <i class="fi fi-rs-box-alt ceckout"></i> Proceed To Checkout
-                        </button>
-                    </form>
-                </div>
+
+                @if (session('cart'))
+                    <div class="cart__total">
+                        <h3 class="section__title">Cart Totals</h3>
+                        <table class="cart__total-table">
+                            <tr>
+                                <td><span class="cart__total-title">Cart Subtotal</span></td>
+                                <td><span class="cart__total-price">{{ number_format($TotalHarga, 0, ',', '.') }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="cart__total-title">Ongkir</span></td>
+                                <td><span class="cart__total-price">{{ number_format($Ongkir, 0, ',', '.') }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="cart__total-title">Total</span></td>
+                                <td><span class="cart__total-price">{{ number_format($TotalKeseluruhan, 0, ',', '.') }}</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <form action="{{ route('ceckout') }}" method="post" class="form grid">
+                            @csrf
+                            <input type="text" placeholder="Nama"
+                                class="form__input {{ $errors->has('customer_name') ? 'input-danger' : '' }}"
+                                name="customer_name" value="{{ old('customer_name') }}" />
+                            <input type="tel" placeholder="Nomer Telphone"
+                                class="form__input {{ $errors->has('customer_phone') ? 'input-danger' : '' }}"
+                                name="customer_phone" value="{{ old('customer_phone') }}" />
+                            <input type="text" placeholder="Alamat Rumah"
+                                class="form__input {{ $errors->has('customer_address') ? 'input-danger' : '' }}"
+                                name="customer_address" value="{{ old('customer_address') }}" />
+                            <input type="text" placeholder="Kota"
+                                class="form__input {{ $errors->has('customer_city') ? 'input-danger' : '' }}"
+                                name="customer_city" value="{{ old('customer_city') }}" />
+                            <input type="text" placeholder="Code Pos"
+                                class="form__input {{ $errors->has('customer_postal_code') ? 'input-danger' : '' }}"
+                                name="customer_postal_code" value="{{ old('customer_postal_code') }}" />
+                            <button type="submit" class="btn flex btn--md">
+                                <i class="fi fi-rs-box-alt ceckout"></i> Proceed To Checkout
+                            </button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </section>
 

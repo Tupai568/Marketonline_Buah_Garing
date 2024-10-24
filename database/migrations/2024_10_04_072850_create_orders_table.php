@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_address');
             $table->string('customer_phone');
+            $table->string('customer_city');
+            $table->integer('customer_postal_code');
             $table->timestamp('order_date')->useCurrent();
             $table->integer('total_amount');
             $table->string('status')->default("unpaid");
